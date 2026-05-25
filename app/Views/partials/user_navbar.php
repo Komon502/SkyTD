@@ -1,10 +1,12 @@
 <?php
 /** @var object $currentUser */
 /** @var string $activePage - ค่าที่เป็นไปได้: dashboard, trade, history, deposit, profile */
-if (!isset($currentUser)) return;
 static $navbarRendered = false;
 if ($navbarRendered) return;
 $navbarRendered = true;
+
+// Determine if a user is logged in; allow navbar to render for guests too
+$isLoggedIn = isset($currentUser) && $currentUser;
 ?>
 <nav class="bg-gradient-to-r from-sky-600 to-sky-700 shadow-xl border-b border-sky-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,15 +40,20 @@ $navbarRendered = true;
             </div>
             <div class="flex items-center space-x-4">
                 <div class="hidden sm:flex items-center space-x-3">
-                    <div class="text-white text-sm">
-                        <span class="font-medium">สวัสดี,</span>
-                        <span class="font-bold"><?php echo htmlspecialchars($currentUser->username); ?></span>
-                    </div>
-                    <?php if (isset($currentUser->role) && $currentUser->role === 'admin'): ?>
-                        <a href="/admin" class="text-white hover:text-sky-100 px-3 py-2 text-sm font-medium rounded-lg bg-sky-800 transition-all duration-200">แอดมิน</a>
+                    <?php if ($isLoggedIn): ?>
+                        <div class="text-white text-sm">
+                            <span class="font-medium">สวัสดี,</span>
+                            <span class="font-bold"><?php echo htmlspecialchars($currentUser->username); ?></span>
+                        </div>
+                        <?php if (isset($currentUser->role) && $currentUser->role === 'admin'): ?>
+                            <a href="/admin" class="text-white hover:text-sky-100 px-3 py-2 text-sm font-medium rounded-lg bg-sky-800 transition-all duration-200">แอดมิน</a>
+                        <?php endif; ?>
+                        <a href="/profile" class="text-sky-100 hover:text-white hover:bg-sky-800 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200">โปรไฟล์</a>
+                        <a href="/logout" class="text-red-200 hover:text-white hover:bg-red-600 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200">ออกจากระบบ</a>
+                    <?php else: ?>
+                        <a href="/login" class="text-white hover:text-sky-100 px-3 py-2 text-sm font-medium rounded-lg bg-sky-800 transition-all duration-200">เข้าสู่ระบบ</a>
+                        <a href="/register" class="text-white hover:text-sky-100 px-3 py-2 text-sm font-medium rounded-lg bg-sky-700 transition-all duration-200">สมัครสมาชิก</a>
                     <?php endif; ?>
-                    <a href="/profile" class="text-sky-100 hover:text-white hover:bg-sky-800 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200">โปรไฟล์</a>
-                    <a href="/logout" class="text-red-200 hover:text-white hover:bg-red-600 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200">ออกจากระบบ</a>
                 </div>
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
@@ -59,7 +66,7 @@ $navbarRendered = true;
             </div>
         </div>
         <!-- Mobile menu -->
-        <div id="user-mobile-menu" class="hidden md:hidden pb-4">
+            <div id="user-mobile-menu" class="hidden md:hidden pb-4">
             <div class="flex flex-col space-y-1">
                 <?php foreach ($navItems as $item):
                     $isActive = ($activePage ?? '') === $item['key'];
@@ -71,15 +78,20 @@ $navbarRendered = true;
                 <?php endforeach; ?>
             </div>
             <div class="border-t border-sky-700 mt-3 pt-3 flex flex-col space-y-2 sm:hidden">
-                <div class="text-white text-sm px-4">
-                    <span class="font-medium">สวัสดี,</span>
-                    <span class="font-bold"><?php echo htmlspecialchars($currentUser->username); ?></span>
-                </div>
-                <?php if (isset($currentUser->role) && $currentUser->role === 'admin'): ?>
-                    <a href="/admin" class="text-white hover:text-sky-100 px-4 py-2 text-sm font-medium rounded-lg bg-sky-800 transition-all duration-200">แอดมิน</a>
-                <?php endif; ?>
-                <a href="/profile" class="text-sky-100 hover:text-white hover:bg-sky-800 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200">โปรไฟล์</a>
-                <a href="/logout" class="text-red-200 hover:text-white hover:bg-red-600 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200">ออกจากระบบ</a>
+                    <?php if ($isLoggedIn): ?>
+                        <div class="text-white text-sm px-4">
+                            <span class="font-medium">สวัสดี,</span>
+                            <span class="font-bold"><?php echo htmlspecialchars($currentUser->username); ?></span>
+                        </div>
+                        <?php if (isset($currentUser->role) && $currentUser->role === 'admin'): ?>
+                            <a href="/admin" class="text-white hover:text-sky-100 px-4 py-2 text-sm font-medium rounded-lg bg-sky-800 transition-all duration-200">แอดมิน</a>
+                        <?php endif; ?>
+                        <a href="/profile" class="text-sky-100 hover:text-white hover:bg-sky-800 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200">โปรไฟล์</a>
+                        <a href="/logout" class="text-red-200 hover:text-white hover:bg-red-600 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200">ออกจากระบบ</a>
+                    <?php else: ?>
+                        <a href="/login" class="text-sky-100 hover:text-white hover:bg-sky-800 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200">เข้าสู่ระบบ</a>
+                        <a href="/register" class="text-sky-100 hover:text-white hover:bg-sky-800 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200">สมัครสมาชิก</a>
+                    <?php endif; ?>
             </div>
         </div>
     </div>

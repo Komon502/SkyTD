@@ -3,8 +3,9 @@
 <head>
     <?php $title = 'อัปโหลดสลิป | SkyTrade'; include __DIR__ . '/partials/head.php'; ?>
 </head>
-<body class="bg-blue-50 min-h-screen flex items-center justify-center">
-    <div class="bg-white rounded shadow p-8 max-w-md w-full">
+<body class="bg-blue-50 min-h-screen flex items-start justify-center">
+    <?php include __DIR__ . '/partials/user_navbar.php'; ?>
+    <div class="bg-white rounded shadow p-8 max-w-md w-full mt-20">
         <h1 class="text-2xl font-bold text-blue-600 mb-6">อัปโหลดสลิปเติมเงิน</h1>
         <?php if (!empty($error)) : ?>
             <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-center">

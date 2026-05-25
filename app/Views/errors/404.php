@@ -4,6 +4,7 @@
     <?php $title = '404 - ไม่พบหน้า'; include __DIR__ . '/../partials/head.php'; ?>
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center px-4">
+    <?php include __DIR__ . '/../partials/user_navbar.php'; ?>
     <div class="max-w-2xl mx-auto text-center">
         <h1 class="text-6xl font-bold text-sky-600 mb-4">404</h1>
         <h2 class="text-3xl font-bold text-gray-900 mb-2">ไม่พบหน้านี้</h2>

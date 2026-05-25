@@ -4,6 +4,7 @@
     <?php $title = 'ประวัติการเทรด | SkyTrade'; include __DIR__ . '/partials/head.php'; ?>
 </head>
 <body class="bg-gray-50 min-h-screen">
+    <?php include __DIR__ . '/partials/user_navbar.php'; ?>
     <div class="max-w-2xl mx-auto mt-10 bg-white rounded shadow p-6">
         <h1 class="text-2xl font-bold text-blue-600 mb-4">ประวัติการเทรด</h1>
         <div class="overflow-x-auto responsive-table">

@@ -26,6 +26,7 @@
     </script>
 </head>
 <body class="bg-gray-50">
+    <?php include __DIR__ . '/../partials/user_navbar.php'; ?>
         <!-- Header -->
         <div class="text-center mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">เลือกโหมดการเทรด</h2>

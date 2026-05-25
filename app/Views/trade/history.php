@@ -3,6 +3,8 @@
 <head>
     <?php $title = 'ประวัติการเทรด - SkyTrade'; include __DIR__ . '/../partials/head.php'; ?>
 </head>
+<body class="bg-gray-50">
+    <?php include __DIR__ . '/../partials/user_navbar.php'; ?>
         <!-- Stats Summary -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div class="bg-white p-6 rounded-lg shadow">
