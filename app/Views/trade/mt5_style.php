@@ -2,9 +2,7 @@
 <html lang="th">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyTrade Terminal</title>
+    <?php $title = 'SkyTrade Terminal'; include __DIR__ . '/../partials/head.php'; ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.js"></script>
@@ -834,6 +832,22 @@
             .trade-btns .sell-btn {
                 padding: 9px;
             }
+        }
+
+        /* Extra small screens - stack panels vertically and allow scrolling */
+        @media (max-width: 480px) {
+            html, body { overflow: auto; }
+            #app { height: auto; }
+            #body { flex-direction: column; overflow: visible; }
+            #left-sidebar { display: none; }
+            #right-panel { width: 100%; order: 2; border-left: none; border-top: 1px solid var(--border); }
+            #chart-area { order: 1; height: 60vh; }
+            #chart-canvas-wrap { height: 100%; }
+            .panel-scroll { max-height: 28vh; overflow-y: auto; }
+            .trade-btns { grid-template-columns: 1fr; }
+            .chart-overlay { position: static; margin: 8px; backdrop-filter: none; }
+            .menu-btn { display: none; }
+            .brand { font-size: 12px; }
         }
     </style>
 </head>

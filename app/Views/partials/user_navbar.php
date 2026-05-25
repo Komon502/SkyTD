@@ -84,3 +84,18 @@ $navbarRendered = true;
         </div>
     </div>
 </nav>
+<script>
+// Close mobile menu when clicking outside or on a menu link
+(function(){
+    const btn = document.querySelector('#user-mobile-menu') ? document.querySelector('nav button[onclick*="user-mobile-menu"]') : null;
+    const menu = document.getElementById('user-mobile-menu');
+    if(!menu) return;
+    document.addEventListener('click', function(e){
+        if(menu.classList.contains('hidden')) return;
+        const inside = menu.contains(e.target) || (btn && btn.contains(e.target));
+        if(!inside) menu.classList.add('hidden');
+    });
+    // close on link click
+    menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>menu.classList.add('hidden')));
+})();
+</script>

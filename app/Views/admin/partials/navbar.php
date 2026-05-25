@@ -78,3 +78,17 @@ if (!isset($activePage)) $activePage = '';
         </div>
     </div>
 </nav>
+<script>
+// Close admin mobile menu when clicking outside or on a menu link
+(function(){
+    const btn = document.querySelector('nav button[onclick*="mobile-menu"]');
+    const menu = document.getElementById('mobile-menu');
+    if(!menu) return;
+    document.addEventListener('click', function(e){
+        if(menu.classList.contains('hidden')) return;
+        const inside = menu.contains(e.target) || (btn && btn.contains(e.target));
+        if(!inside) menu.classList.add('hidden');
+    });
+    menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>menu.classList.add('hidden')));
+})();
+</script>

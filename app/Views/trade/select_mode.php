@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เลือกโหมดการเทรด - SkyTrade</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <?php $title = 'เลือกโหมดการเทรด - SkyTrade'; include __DIR__ . '/../partials/head.php'; ?>
     <script>
         tailwind.config = {
             theme: {
@@ -29,9 +26,6 @@
     </script>
 </head>
 <body class="bg-gray-50">
-    <?php $activePage = 'trade'; include __DIR__ . '/../partials/user_navbar.php'; ?>
-
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="text-center mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">เลือกโหมดการเทรด</h2>

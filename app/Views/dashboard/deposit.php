@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เติมเงิน - SkyTrade</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <?php $title = 'ฝากเงิน - SkyTrade'; include __DIR__ . '/../partials/head.php'; ?>
     <script>
         tailwind.config = {
             theme: {
@@ -29,9 +26,6 @@
     </script>
 </head>
 <body class="bg-gray-50">
-    <?php $activePage = 'deposit'; include __DIR__ . '/../partials/user_navbar.php'; ?>
-
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <?php if (isset($success)): ?>
             <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
                 <?php echo htmlspecialchars($success); ?>

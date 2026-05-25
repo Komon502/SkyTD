@@ -1,15 +1,8 @@
 <!-- login.php: ฟอร์มเข้าสู่ระบบ SkyTrade -->
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyTrade Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <?php $title = 'SkyTrade Login'; include __DIR__ . '/partials/head.php'; ?>
 </head>
-<body class="bg-gradient-to-b from-blue-100 to-gray-100 min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-        <div class="flex flex-col items-center mb-6">
-            <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center mb-2">
                 <span class="text-white text-3xl font-bold">S</span>
             </div>
             <h1 class="text-2xl font-bold text-blue-600">SkyTrade</h1>

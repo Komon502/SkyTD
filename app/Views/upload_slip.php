@@ -1,9 +1,7 @@
 <!-- upload_slip.php: อัปโหลดสลิปเติมเงิน -->
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <title>อัปโหลดสลิป | SkyTrade</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <?php $title = 'อัปโหลดสลิป | SkyTrade'; include __DIR__ . '/partials/head.php'; ?>
 </head>
 <body class="bg-blue-50 min-h-screen flex items-center justify-center">
     <div class="bg-white rounded shadow p-8 max-w-md w-full">

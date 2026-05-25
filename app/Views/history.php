@@ -1,14 +1,13 @@
 <!-- history.php: ประวัติการเทรด -->
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <title>ประวัติการเทรด | SkyTrade</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <?php $title = 'ประวัติการเทรด | SkyTrade'; include __DIR__ . '/partials/head.php'; ?>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <div class="max-w-2xl mx-auto mt-10 bg-white rounded shadow p-6">
         <h1 class="text-2xl font-bold text-blue-600 mb-4">ประวัติการเทรด</h1>
-        <table class="w-full table-auto border">
+        <div class="overflow-x-auto responsive-table">
+            <table class="w-full table-auto border">
             <thead>
                 <tr class="bg-blue-100">
                     <th class="p-2">คู่เงิน</th>
@@ -35,7 +34,8 @@
                 <tr><td colspan="6" class="text-center text-gray-400">ไม่มีข้อมูล</td></tr>
             <?php endif; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
         <div class="mt-4 text-center">
             <a href="/trade" class="text-blue-500 hover:underline">กลับไปเทรด</a>
         </div>
