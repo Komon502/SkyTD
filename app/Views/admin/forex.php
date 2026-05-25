@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <?php $title = 'จัดการ Forex - SkyTrade Admin'; include __DIR__ . '/partials/head.php'; ?>
+    <?php $title = 'จัดการ Forex - SkyTrade Admin'; include __DIR__ . '/../partials/head.php'; ?>
     <script>
         tailwind.config = {
             theme: {
