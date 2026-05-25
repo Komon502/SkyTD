@@ -1,0 +1,197 @@
+<?php
+// User Model: โครงสร้างข้อมูลผู้ใช้ + ฟังก์ชัน DB
+require_once __DIR__ . '/../../config/database.php';
+class User {
+    public $id;
+    public $username;
+    public $email;
+    public $password;
+    public $balance;
+    public $demo_balance;
+    public $role;
+    public $win_rate;
+    public $status;
+    public $created_at;
+    public $updated_at;
+
+    private static function db() {
+        $cfg = include __DIR__ . '/../../config/database.php';
+        return new PDO('mysql:host=' . $cfg['host'] . ';dbname=' . $cfg['dbname'], $cfg['user'], $cfg['pass']);
+    }
+
+    // Public method for database access (for admin controller)
+    public static function getDbConnection() {
+        return self::db();
+    }
+
+    // สร้างผู้ใช้ใหม่ (Register)
+    public static function create($username, $email, $password) {
+        $db = self::db();
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $db->prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?)');
+        return $stmt->execute([$username, $email, $hashedPassword]);
+    }
+
+    // ตรวจสอบการ login
+    public static function authenticate($username, $password) {
+        $db = self::db();
+        $stmt = $db->prepare('SELECT * FROM users WHERE username = ? AND status = "active"');
+        $stmt->execute([$username]);
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        
+        if ($user && password_verify($password, $user->password)) {
+            return $user;
+        }
+        return false;
+    }
+
+    // ดึงข้อมูลผู้ใช้ตาม ID
+    public static function findById($id) {
+        $db = self::db();
+        $stmt = $db->prepare('SELECT * FROM users WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    // ดึงข้อมูลผู้ใช้ตามอีเมล
+    public static function findByEmail($email) {
+        $db = self::db();
+        $stmt = $db->prepare('SELECT * FROM users WHERE email = ?');
+        $stmt->execute([$email]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    // ตรวจสอบว่าชื่อผู้ใช้ซ้ำหรือไม่
+    public static function usernameExists($username) {
+        $db = self::db();
+        $stmt = $db->prepare('SELECT id FROM users WHERE username = ?');
+        $stmt->execute([$username]);
+        return $stmt->fetch() !== false;
+    }
+
+    // ดึง user ทั้งหมด
+    public static function getAll() {
+        $db = self::db();
+        $stmt = $db->query('SELECT * FROM users ORDER BY id ASC');
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    // อัปเดตข้อมูลผู้ใช้
+    public static function update($id, $data) {
+        $db = self::db();
+        $fields = [];
+        $values = [];
+        
+        foreach ($data as $key => $value) {
+            if (in_array($key, ['username', 'email', 'balance', 'demo_balance', 'role', 'win_rate', 'status'])) {
+                $fields[] = "$key = ?";
+                $values[] = $value;
+            }
+        }
+        
+        if (!empty($fields)) {
+            $values[] = $id;
+            $sql = "UPDATE users SET " . implode(', ', $fields) . " WHERE id = ?";
+            $stmt = $db->prepare($sql);
+            return $stmt->execute($values);
+        }
+        return false;
+    }
+
+    // อัปเดตรหัสผ่านใหม่ผ่าน Forgot Password (ใช้ username และ email ในการยืนยัน)
+    public static function resetPassword($username, $email, $newPassword) {
+        $db = self::db();
+        // ค้นหาผู้ใช้ที่ชื่อผู้ใช้และอีเมลตรงกัน
+        $stmt = $db->prepare('SELECT id FROM users WHERE username = ? AND email = ?');
+        $stmt->execute([$username, $email]);
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        
+        if ($user) {
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            $stmtUpdate = $db->prepare('UPDATE users SET password = ? WHERE id = ?');
+            return $stmtUpdate->execute([$hashedPassword, $user->id]);
+        }
+        return false;
+    }
+
+    // ปรับอัตราชนะ
+    public static function updateWinRate($id, $winRate) {
+        return self::update($id, ['win_rate' => $winRate]);
+    }
+
+    // เติมเงิน (Real Balance)
+    public static function addBalance($id, $amount) {
+        $db = self::db();
+        $stmt = $db->prepare('UPDATE users SET balance = balance + ? WHERE id = ?');
+        return $stmt->execute([$amount, $id]);
+    }
+
+    // เติมเงิน (Demo Balance)
+    public static function addDemoBalance($id, $amount) {
+        $db = self::db();
+        $stmt = $db->prepare('UPDATE users SET demo_balance = demo_balance + ? WHERE id = ?');
+        return $stmt->execute([$amount, $id]);
+    }
+
+    // หักเงิน (Real Balance)
+    public static function deductBalance($id, $amount) {
+        $db = self::db();
+        $stmt = $db->prepare('UPDATE users SET balance = balance - ? WHERE id = ? AND balance >= ?');
+        return $stmt->execute([$amount, $id, $amount]);
+    }
+
+    // หักเงิน (Demo Balance)
+    public static function deductDemoBalance($id, $amount) {
+        $db = self::db();
+        $stmt = $db->prepare('UPDATE users SET demo_balance = demo_balance - ? WHERE id = ? AND demo_balance >= ?');
+        return $stmt->execute([$amount, $id, $amount]);
+    }
+
+    // ตรวจสอบยอดเงิน
+    public static function getBalance($id, $mode = 'real') {
+        $db = self::db();
+        $field = $mode === 'demo' ? 'demo_balance' : 'balance';
+        $stmt = $db->prepare("SELECT $field FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+        return $result ? $result->$field : 0;
+    }
+
+    // ตรวจสอบว่าเป็น admin หรือไม่
+    public static function isAdmin($id) {
+        $user = self::findById($id);
+        return $user && $user->role === 'admin';
+    }
+
+    // สร้าง session
+    public static function createSession($user) {
+        session_start();
+        $_SESSION['user_id'] = $user->id;
+        $_SESSION['username'] = $user->username;
+        $_SESSION['role'] = $user->role;
+        $_SESSION['logged_in'] = true;
+    }
+
+    // ทำลาย session
+    public static function destroySession() {
+        session_start();
+        session_unset();
+        session_destroy();
+    }
+
+    // ตรวจสอบการ login
+    public static function isLoggedIn() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+    }
+
+    // ดึงข้อมูลผู้ใช้ที่ login อยู่
+    public static function getCurrentUser() {
+        if (self::isLoggedIn()) {
+            return self::findById($_SESSION['user_id']);
+        }
+        return null;
+    }
+}
