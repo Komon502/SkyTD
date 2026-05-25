@@ -3,8 +3,11 @@
 <head>
     <?php $title = 'SkyTrade Login'; include __DIR__ . '/partials/head.php'; ?>
 </head>
-                <span class="text-white text-3xl font-bold">S</span>
-            </div>
+<body class="bg-gray-50 min-h-screen">
+    <?php include __DIR__ . '/partials/user_navbar.php'; ?>
+    <div class="max-w-md mx-auto mt-20 bg-white rounded shadow p-8">
+        <div class="text-center mb-6">
+            <span class="text-white text-3xl font-bold">S</span>
             <h1 class="text-2xl font-bold text-blue-600">SkyTrade</h1>
             <p class="text-gray-500">เข้าสู่ระบบเพื่อเทรด Forex</p>
         </div>

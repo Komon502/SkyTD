@@ -27,21 +27,7 @@
 </head>
 <body class="bg-gradient-to-br from-sky-50 to-gray-100 min-h-screen">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-2xl font-bold text-sky-600">SkyTrade</h1>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="/login" class="text-gray-700 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium">เข้าสู่ระบบ</a>
-                    <a href="/register" class="bg-sky-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-sky-700">สมัครสมาชิก</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include __DIR__ . '/partials/user_navbar.php'; ?>
 
     <!-- Hero Section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -82,7 +68,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                     </svg>
                 </div>
-                <รึ class="text-xl font-semibold text-gray-900 mb-2">ราคาจริง อัปเดตแบบ Real-time</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">ราคาจริง อัปเดตแบบ Real-time</h3>
                 <p class="text-gray-600">ราคา Forex อิงจากตลาดจริง อัปเดตทันที</p>
             </div>
             

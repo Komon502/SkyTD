@@ -26,6 +26,7 @@
     </script>
 </head>
 <body class="bg-gray-50">
+    <?php include __DIR__ . '/../partials/user_navbar.php'; ?>
         <?php if (isset($success)): ?>
             <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
                 <?php echo htmlspecialchars($success); ?>

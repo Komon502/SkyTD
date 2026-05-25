@@ -25,8 +25,9 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-br from-sky-50 to-gray-100 min-h-screen flex items-center justify-center">
-    <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
+<body class="bg-gradient-to-br from-sky-50 to-gray-100 min-h-screen flex items-start justify-center">
+    <?php include __DIR__ . '/../partials/user_navbar.php'; ?>
+    <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg mt-20">
         <div>
             <div class="text-center">
                 <h1 class="text-3xl font-bold text-sky-600">SkyTrade</h1>

@@ -853,6 +853,7 @@
 </head>
 
 <body>
+    <?php include __DIR__ . '/../partials/user_navbar.php'; ?>
     <div id="app">
 
         <!-- ════════ TOP BAR ════════ -->

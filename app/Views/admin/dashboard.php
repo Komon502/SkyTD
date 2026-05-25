@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-50">
+    <?php $activePage = 'dashboard'; include __DIR__ . '/partials/navbar.php'; ?>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
         <!-- Welcome Section -->
         <div class="bg-gradient-to-r from-sky-500 to-blue-600 rounded-lg p-6 mb-8 text-white">
